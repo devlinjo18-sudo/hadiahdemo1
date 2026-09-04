@@ -290,7 +290,7 @@ button:focus-visible, input:focus-visible{
   transition: opacity 0.35s var(--ease);
   border-radius:50%;
 }
-.gift-box__svg{ position:relative; width:100%; height:100%; filter: drop-shadow(0 14px 20px rgba(74,44,58,0.22)); }
+.gift-box__svg{ position:relative; width:100%; height:100%; overflow:visible; filter: drop-shadow(0 14px 20px rgba(74,44,58,0.22)); }
 .gift-base{ fill: var(--rose); }
 .gift-lid{ transform-origin: 60px 48px; transition: transform 0.35s var(--ease); }
 .gift-lid rect{ fill: var(--rose-deep); }
@@ -1010,16 +1010,16 @@ body{min-height:100vh;}
       <button id="gift-box" class="gift-box" aria-label="Buka kado">
         <span class="gift-box__glow"></span>
         <svg class="gift-box__svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <!-- base -->
-          <rect class="gift-base" x="14" y="52" width="110" height="72" rx="6"/>
+          <!-- base: proporsi dibuat lebih simetris agar tidak terpotong -->
+          <rect class="gift-base" x="12" y="52" width="96" height="64" rx="4"/>
           <!-- lid -->
           <g class="gift-lid">
-            <rect x="8" y="38" width="104" height="20" rx="6"/>
-            <path d="M60 38 C 46 18, 24 18, 22 30 C 20 40, 40 40, 60 38 Z" class="ribbon-loop"/>
-            <path d="M60 38 C 74 18, 96 18, 98 30 C 100 40, 80 40, 60 38 Z" class="ribbon-loop"/>
+            <rect x="7" y="38" width="106" height="18" rx="5"/>
+            <path d="M60 38 C48 21 28 17 22 26 C16 35 29 40 60 38 Z" class="ribbon-loop"/>
+            <path d="M60 38 C72 21 92 17 98 26 C104 35 91 40 60 38 Z" class="ribbon-loop"/>
           </g>
           <!-- vertical ribbon -->
-          <rect x="52" y="38" width="16" height="68" class="ribbon-strip"/>
+          <rect x="52" y="38" width="16" height="78" class="ribbon-strip"/>
         </svg>
       </button>
     </div>
@@ -1335,7 +1335,7 @@ body{min-height:100vh;}
 
   function handleError() {
     pinRow.classList.add('is-shaking');
-    statusMsg.textContent = 'Masih salah nih Sayang 💕 Coba lagi yaa~';
+    statusMsg.textContent = 'Hehe, masih salah nih 💕 Coba lagi yaa~';
     statusMsg.classList.remove('is-success');
     statusMsg.classList.add('is-visible');
 
