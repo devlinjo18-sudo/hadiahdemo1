@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday, SAYANG 🎂</title>
+<title>Sesuatu yang Spesial 💕 | Happy Birthday SAYANG 🎂</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -607,9 +607,376 @@ button:focus-visible, input:focus-visible{
 .music-visualizer{height:34px;display:flex;align-items:flex-end;justify-content:center;gap:5px;margin:0 auto 1.3rem}.music-visualizer span{width:4px;height:8px;border-radius:4px;background:var(--rose-deep);opacity:.35;transform-origin:bottom}.scene-music--animate .music-visualizer span{animation:equalizer 1s ease-in-out infinite}.scene-music--animate .music-visualizer span:nth-child(1){animation-delay:.05s}.scene-music--animate .music-visualizer span:nth-child(2){animation-delay:.22s}.scene-music--animate .music-visualizer span:nth-child(3){animation-delay:.39s}.scene-music--animate .music-visualizer span:nth-child(4){animation-delay:.16s}.scene-music--animate .music-visualizer span:nth-child(5){animation-delay:.31s}.scene-music--animate .music-visualizer span:nth-child(6){animation-delay:.12s}.scene-music--animate .music-visualizer span:nth-child(7){animation-delay:.27s}@keyframes equalizer{0%,100%{height:7px;opacity:.35}50%{height:30px;opacity:1}}.scene-music--animate .player-card{animation:music-card-in .9s var(--ease) both}@keyframes music-card-in{from{opacity:0;transform:translateY(32px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
 .scene-letter--animate .envelope__svg{animation:envelope-special 1.25s var(--ease) both}.scene-letter--animate .envelope__glow{animation:letter-glow 2.8s ease-in-out infinite}@keyframes envelope-special{0%{opacity:0;transform:translateY(35px) scale(.82) rotate(-4deg)}55%{opacity:1;transform:translateY(-8px) scale(1.04) rotate(1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}}@keyframes letter-glow{0%,100%{transform:scale(.92);opacity:.4}50%{transform:scale(1.13);opacity:1}}.letter-paper{overflow:hidden;border:1px solid rgba(207,160,94,.22)}.letter-paper::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.85) 48%,transparent 72%);transform:translateX(-130%);pointer-events:none}.letter-paper.is-open::before{animation:paper-shimmer 1.5s ease .35s both}.letter-paper::after{content:'✦  ✧  ✦';position:absolute;top:12px;right:18px;font-size:.75rem;letter-spacing:.25rem;color:var(--gold);opacity:.7;animation:sparkle-float 2.8s ease-in-out infinite}@keyframes paper-shimmer{to{transform:translateX(130%)}}@keyframes sparkle-float{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(-5px);opacity:1}}.scene-letter--animate .letter-to{animation:letter-heading .8s var(--ease) .55s both}@keyframes letter-heading{from{opacity:0;transform:translateY(12px);letter-spacing:.08em}to{opacity:1;transform:translateY(0);letter-spacing:0}}
 @media (prefers-reduced-motion:reduce){.choice-card,.photo-item{opacity:1;transform:none;filter:none}}
+
+
+/* ==========================================================
+   DESIGN TOKENS — ubah warna/font utama di sini
+   ========================================================== */
+:root{
+  --cream:      #FFF8F2;
+  --blush-soft: #FBE3EA;
+  --blush:      #F6C9D8;
+  --rose:       #E28AA5;
+  --rose-deep:  #C96786;
+  --gold:       #CFA05E;
+  --gold-soft:  #E7CE9D;
+  --plum:       #4A2C3A;
+  --plum-soft:  #7A5468;
+  --white:      #FFFFFF;
+  --error:      #D9667E;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Nunito', sans-serif;
+
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+
+*{ box-sizing:border-box; }
+html{ height:100%; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  min-height:100dvh;
+  font-family:var(--font-body);
+  color:var(--plum);
+  background:
+    radial-gradient(circle at 12% 12%, var(--blush-soft) 0%, transparent 45%),
+    radial-gradient(circle at 88% 18%, var(--gold-soft) 0%, transparent 42%),
+    radial-gradient(circle at 50% 100%, var(--blush-soft) 0%, transparent 55%),
+    var(--cream);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:5vh 5vw;
+  position:relative;
+}
+
+button{ font-family:inherit; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+}
+
+/* ==========================================================
+   AMBIENT BACKGROUND LAYERS
+   ========================================================== */
+#sparkle-canvas{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+}
+#hearts-layer{
+  position:fixed; inset:0; z-index:1; pointer-events:none; overflow:hidden;
+}
+.floating-heart{
+  position:absolute;
+  bottom:-10%;
+  line-height:1;
+  filter:drop-shadow(0 4px 8px rgba(74,44,58,0.10));
+  animation-name:heart-float;
+  animation-timing-function:ease-in-out;
+  animation-fill-mode:forwards;
+  will-change:transform, opacity;
+}
+@keyframes heart-float{
+  0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:0; }
+  10%{ opacity:var(--h-op, .5); }
+  90%{ opacity:var(--h-op, .5); }
+  100%{ transform:translateY(-115vh) translateX(var(--drift)) rotate(var(--rot)); opacity:0; }
+}
+
+.bloom{
+  position:absolute; font-size:20px; opacity:.5;
+  animation:bloom-sway 6s ease-in-out infinite;
+  filter:drop-shadow(0 3px 6px rgba(74,44,58,0.10));
+}
+@keyframes bloom-sway{
+  0%,100%{ transform:translateY(0) rotate(-4deg); }
+  50%{ transform:translateY(-10px) rotate(4deg); }
+}
+
+/* ==========================================================
+   MAIN CARD — glassmorphism
+   ========================================================== */
+.card{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:440px;
+  background:rgba(255,255,255,0.55);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.6);
+  border-radius:32px;
+  padding:2.8rem 2.2rem 2.4rem;
+  box-shadow:
+    0 30px 70px -25px rgba(74,44,58,0.28),
+    0 0 0 1px rgba(255,255,255,0.3) inset;
+  text-align:center;
+  opacity:0;
+  transform:translateY(24px) scale(0.94);
+  animation:card-in 0.85s var(--ease) 0.15s forwards;
+}
+@keyframes card-in{
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+.card-glow{
+  position:absolute; inset:-30%;
+  background:radial-gradient(circle, rgba(230,150,180,0.22), transparent 65%);
+  filter:blur(10px);
+  z-index:-1;
+  animation:glow-pulse 4.5s ease-in-out infinite;
+}
+@keyframes glow-pulse{
+  0%,100%{ transform:scale(0.95); opacity:.7; }
+  50%{ transform:scale(1.05); opacity:1; }
+}
+
+.card-icon{
+  font-size:2.2rem;
+  display:inline-block;
+  margin-bottom:0.4rem;
+  animation:icon-bob 3s ease-in-out infinite;
+}
+@keyframes icon-bob{
+  0%,100%{ transform:translateY(0) rotate(0deg); }
+  50%{ transform:translateY(-6px) rotate(-6deg); }
+}
+
+.card-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(1.9rem, 6vw, 2.4rem);
+  margin:0 0 0.5rem;
+  color:var(--plum);
+}
+
+.card-sub{
+  font-size:0.98rem;
+  color:var(--plum-soft);
+  line-height:1.55;
+  margin:0 0 2rem;
+  padding:0 0.3rem;
+}
+
+/* ==========================================================
+   6-DIGIT PASSWORD INPUT
+   ========================================================== */
+.pin-row{
+  display:flex;
+  justify-content:center;
+  gap:0.55rem;
+  margin-bottom:1.1rem;
+}
+
+.pin-box{
+  width:15%;
+  max-width:52px;
+  aspect-ratio:1/1;
+  border-radius:16px;
+  border:2px solid var(--blush);
+  background:rgba(255,255,255,0.75);
+  color:var(--plum);
+  font-family:var(--font-display);
+  font-size:clamp(1.3rem, 5vw, 1.7rem);
+  font-weight:600;
+  text-align:center;
+  outline:none;
+  caret-color:transparent;
+  transition:border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+  -webkit-appearance:none;
+  appearance:none;
+}
+
+/* hide native number spinners just in case */
+.pin-box::-webkit-outer-spin-button,
+.pin-box::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+
+.pin-box:focus{
+  border-color:var(--rose-deep);
+  box-shadow:0 0 0 4px rgba(226,138,165,0.22);
+  transform:translateY(-2px);
+}
+
+/* bounce + glow when a digit is entered */
+.pin-box.is-filled{
+  border-color:var(--rose);
+  background:var(--white);
+  animation:pin-pop 0.38s var(--ease);
+}
+@keyframes pin-pop{
+  0%{ transform:scale(1); }
+  40%{ transform:scale(1.18); box-shadow:0 0 0 6px rgba(226,138,165,0.28); }
+  100%{ transform:scale(1); }
+}
+
+/* shake on wrong password */
+.pin-row.is-shaking .pin-box{
+  border-color:var(--error);
+  animation:pin-shake 0.5s var(--ease);
+}
+@keyframes pin-shake{
+  0%,100%{ transform:translateX(0); }
+  20%{ transform:translateX(-8px); }
+  40%{ transform:translateX(7px); }
+  60%{ transform:translateX(-5px); }
+  80%{ transform:translateX(4px); }
+}
+
+/* glow success state */
+.pin-row.is-success .pin-box{
+  border-color:var(--gold);
+  background:linear-gradient(180deg, #FFFDF7, var(--blush-soft));
+  box-shadow:0 0 18px 4px rgba(207,160,94,0.55);
+  animation:pin-success-glow 1s ease-in-out infinite alternate;
+}
+@keyframes pin-success-glow{
+  from{ box-shadow:0 0 12px 2px rgba(207,160,94,0.4); }
+  to{ box-shadow:0 0 22px 6px rgba(207,160,94,0.7); }
+}
+
+.pin-hint{
+  font-size:0.8rem;
+  color:var(--plum-soft);
+  opacity:0.75;
+  margin:0 0 1.4rem;
+}
+.pin-hint b{ color:var(--rose-deep); font-weight:700; letter-spacing:0.04em; }
+
+/* status message (error / success) */
+.status-msg{
+  min-height:1.4em;
+  font-size:0.95rem;
+  font-weight:700;
+  margin:0;
+  color:var(--error);
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.status-msg.is-visible{ opacity:1; transform:translateY(0); }
+.status-msg.is-success{ color:var(--rose-deep); }
+
+/* ==========================================================
+   SUCCESS SPARKLE / HEART BURST OVERLAY
+   ========================================================== */
+#success-burst{
+  position:fixed; inset:0; z-index:40; pointer-events:none; overflow:hidden;
+}
+.burst-piece{
+  position:absolute;
+  animation:burst-fly 1.4s var(--ease) forwards;
+  will-change:transform, opacity;
+}
+@keyframes burst-fly{
+  0%{ transform:translate(0,0) scale(0.4) rotate(0deg); opacity:1; }
+  100%{ transform:translate(var(--bx), var(--by)) scale(1.1) rotate(var(--br)); opacity:0; }
+}
+
+/* whole-page transition to "next" on success */
+#page-transition{
+  position:fixed; inset:0; z-index:50;
+  background:radial-gradient(circle, var(--blush-soft) 0%, var(--cream) 70%);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity 0.9s var(--ease), visibility 0.9s;
+}
+#page-transition.is-active{
+  opacity:1; visibility:visible;
+}
+
+/* card zoom-fade when unlocking */
+.card.is-unlocking{
+  animation:card-unlock 0.9s var(--ease) forwards;
+}
+@keyframes card-unlock{
+  to{ opacity:0; transform:scale(1.08) translateY(-14px); filter:blur(3px); }
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+@media (max-width:380px){
+  .card{ padding:2.2rem 1.3rem 2rem; border-radius:26px; }
+  .pin-row{ gap:0.4rem; }
+}
+
+/* ==========================================================
+   PASSWORD GATE — merged with birthday website
+   ========================================================== */
+#password-screen{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:5vh 5vw;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 12%, var(--blush-soft) 0%, transparent 45%),
+    radial-gradient(circle at 88% 18%, var(--gold-soft) 0%, transparent 42%),
+    radial-gradient(circle at 50% 100%, var(--blush-soft) 0%, transparent 55%),
+    var(--cream);
+  transition:opacity .9s var(--ease), visibility .9s var(--ease);
+}
+#password-screen.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+#password-screen #sparkle-canvas,
+#password-screen #hearts-layer,
+#password-screen #success-burst,
+#password-screen #page-transition{
+  position:absolute;
+}
+#password-screen .card{
+  position:relative;
+}
+
+</style>
+<style>
+/* Password gate keeps the birthday experience behind it until unlocked. */
+body{min-height:100vh;}
 </style>
 </head>
 <body>
+
+<div id="password-screen" aria-label="Halaman password rahasia">
+<!-- Ambient sparkle canvas -->
+<canvas id="sparkle-canvas"></canvas>
+<!-- Floating hearts container -->
+<div id="hearts-layer"></div>
+<!-- Success burst overlay -->
+<div id="success-burst"></div>
+<!-- Fullscreen fade for page transition -->
+<div id="page-transition"></div>
+
+<!-- ============ PASSWORD CARD ============ -->
+<main class="card" id="card">
+  <span class="card-glow" aria-hidden="true"></span>
+
+  <span class="card-icon" aria-hidden="true">💌</span>
+  <h1 class="card-title">Haiii 💕</h1>
+  <p class="card-sub">Masukkan password rahasia untuk membuka sesuatu yang spesial ✨</p>
+
+  <!-- 6 kotak digit -->
+  <div class="pin-row" id="pinRow">
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="0" autocomplete="off">
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="1" autocomplete="off">
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="2" autocomplete="off">
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="3" autocomplete="off">
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="4" autocomplete="off">
+    <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" data-index="5" autocomplete="off">
+  </div>
+
+  <p class="pin-hint">💡 Hint: <b>112233</b></p>
+
+  <p class="status-msg" id="statusMsg"></p>
+</main>
+</div>
 
 <!-- Ambient background layers -->
 <div class="bg-glow"></div>
@@ -748,7 +1115,7 @@ button:focus-visible, input:focus-visible{
     </div>
 
     <audio id="audio-player" preload="metadata"></audio>
-    <!-- Belum ada file musik bawaan. Cari komentar GANTI_MUSIK_DI_SINI di bagian <script> di bawah, lalu isi src dengan URL mp3 atau data:audio/mp3;base64,.... -->
+    <!-- Belum ada file musik bawaan. Cari komentar GANTI_MUSIK_DI_SINI di bagian &lt;script&gt; di bawah, lalu isi src dengan URL mp3 atau data:audio/mp3;base64,.... -->
   </div>
 </section>
 
@@ -764,7 +1131,7 @@ button:focus-visible, input:focus-visible{
       <button id="envelope" class="envelope" aria-label="Buka amplop">
         <span class="envelope__glow"></span>
         <svg viewBox="0 0 200 130" class="envelope__svg" xmlns="http://www.w3.org/2000/svg">
-          <rect x="4" y="14" width="192" height="112" rx="8" class="env-body"/>
+          <rect x="4" y="14" width="92" height="54" rx="8" class="env-body"/>
           <path d="M4 20 L100 84 L196 20" class="env-flap-shadow"/>
           <path d="M4 20 L100 84 L196 20 L196 20 C196 16, 192 14, 188 14 L12 14 C8 14, 4 16, 4 20 Z" class="env-flap"/>
           <circle cx="100" cy="54" r="9" class="env-seal"/>
@@ -780,6 +1147,275 @@ button:focus-visible, input:focus-visible{
     </div>
   </div>
 </section>
+
+<script>
+
+(function () {
+  'use strict';
+
+  /* ============================================================
+     KONFIGURASI — ganti password & URL halaman selanjutnya di sini
+     ============================================================ */
+  const CORRECT_PASSWORD = '112233';
+  const NEXT_PAGE_URL = null; // Website sudah digabung dalam satu file
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  const pinRow = $('#pinRow');
+  const boxes = $$('.pin-box', pinRow);
+  const statusMsg = $('#statusMsg');
+  const card = $('#card');
+  let locked = false; // mencegah input tambahan saat sedang animasi sukses
+
+  /* ============================================================
+     1. AMBIENT SPARKLE CANVAS
+     ============================================================ */
+  (function initSparkles() {
+    const canvas = $('#sparkle-canvas');
+    if (!canvas || prefersReducedMotion) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, sparkles;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    function makeSparkles() {
+      const count = Math.round((w * h) / 42000);
+      sparkles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.6 + 0.6,
+        speed: Math.random() * 0.18 + 0.04,
+        drift: (Math.random() - 0.5) * 0.12,
+        pulse: Math.random() * Math.PI * 2
+      }));
+    }
+    function tick() {
+      ctx.clearRect(0, 0, w, h);
+      sparkles.forEach((p) => {
+        p.y -= p.speed;
+        p.x += p.drift;
+        p.pulse += 0.02;
+        if (p.y < -8) { p.y = h + 8; p.x = Math.random() * w; }
+        const flicker = (Math.sin(p.pulse) + 1) / 2;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(207,160,94,${(0.15 + flicker * 0.45).toFixed(2)})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(tick);
+    }
+    resize(); makeSparkles(); tick();
+    window.addEventListener('resize', () => { resize(); makeSparkles(); });
+  })();
+
+  /* ============================================================
+     2. AMBIENT FLOATING HEARTS
+     ============================================================ */
+  (function initFloatingHearts() {
+    const layer = $('#hearts-layer');
+    if (!layer || prefersReducedMotion) return;
+    const symbols = ['💗', '💕', '💖', '🌸'];
+    const MAX_ON_SCREEN = 10;
+
+    function spawn() {
+      if (layer.children.length >= MAX_ON_SCREEN) return;
+      const el = document.createElement('span');
+      el.className = 'floating-heart';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+      const startX = Math.random() * 96 + 2;
+      const size = Math.random() * 14 + 12;
+      const duration = Math.random() * 7 + 10;
+      const drift = (Math.random() - 0.5) * 140;
+      const rot = (Math.random() - 0.5) * 120;
+      const op = (Math.random() * 0.3 + 0.3).toFixed(2);
+
+      el.style.left = startX + 'vw';
+      el.style.fontSize = size + 'px';
+      el.style.setProperty('--drift', drift + 'px');
+      el.style.setProperty('--rot', rot + 'deg');
+      el.style.setProperty('--h-op', op);
+      el.style.animationDuration = duration + 's';
+
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), duration * 1000 + 200);
+    }
+    spawn();
+    setInterval(spawn, 1500);
+  })();
+
+  /* ============================================================
+     3. PIN INPUT LOGIC
+     ============================================================ */
+  function getCode() {
+    return boxes.map((b) => b.value).join('');
+  }
+
+  function clearStatus() {
+    statusMsg.classList.remove('is-visible', 'is-success');
+    statusMsg.textContent = '';
+  }
+
+  boxes.forEach((box, i) => {
+    // hanya boleh angka
+    box.addEventListener('input', () => {
+      if (locked) return;
+      box.value = box.value.replace(/[^0-9]/g, '').slice(0, 1);
+
+      if (box.value) {
+        box.classList.remove('is-filled');
+        void box.offsetWidth; // restart animasi bounce
+        box.classList.add('is-filled');
+        // pindah fokus ke kotak berikutnya
+        if (i < boxes.length - 1) boxes[i + 1].focus();
+      }
+
+      clearStatus();
+      pinRow.classList.remove('is-shaking');
+
+      // cek otomatis saat 6 digit sudah terisi
+      if (getCode().length === 6) {
+        checkPassword();
+      }
+    });
+
+    // navigasi dengan backspace / panah
+    box.addEventListener('keydown', (e) => {
+      if (locked) return;
+      if (e.key === 'Backspace' && !box.value && i > 0) {
+        boxes[i - 1].focus();
+        boxes[i - 1].value = '';
+        boxes[i - 1].classList.remove('is-filled');
+      } else if (e.key === 'ArrowLeft' && i > 0) {
+        boxes[i - 1].focus();
+      } else if (e.key === 'ArrowRight' && i < boxes.length - 1) {
+        boxes[i + 1].focus();
+      }
+    });
+
+    // dukung paste 6 digit sekaligus
+    box.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+      if (!pasted) return;
+      pasted.split('').forEach((digit, idx) => {
+        if (boxes[idx]) {
+          boxes[idx].value = digit;
+          boxes[idx].classList.remove('is-filled');
+          void boxes[idx].offsetWidth;
+          boxes[idx].classList.add('is-filled');
+        }
+      });
+      const lastIndex = Math.min(pasted.length, boxes.length) - 1;
+      if (boxes[lastIndex]) boxes[lastIndex].focus();
+      if (getCode().length === 6) checkPassword();
+    });
+  });
+
+  // fokus otomatis ke kotak pertama saat halaman dibuka
+  window.addEventListener('load', () => {
+    boxes[0].focus();
+  });
+
+  /* ============================================================
+     4. VALIDASI PASSWORD
+     ============================================================ */
+  function checkPassword() {
+    const code = getCode();
+    if (code === CORRECT_PASSWORD) {
+      handleSuccess();
+    } else {
+      handleError();
+    }
+  }
+
+  function handleError() {
+    pinRow.classList.add('is-shaking');
+    statusMsg.textContent = 'Hehe, masih salah nih 💕 Coba lagi yaa~';
+    statusMsg.classList.remove('is-success');
+    statusMsg.classList.add('is-visible');
+
+    setTimeout(() => {
+      pinRow.classList.remove('is-shaking');
+      // kosongkan semua kotak lalu fokus ulang ke kotak pertama
+      boxes.forEach((b) => { b.value = ''; b.classList.remove('is-filled'); });
+      boxes[0].focus();
+    }, 550);
+  }
+
+  function handleSuccess() {
+    locked = true;
+    boxes.forEach((b) => b.blur());
+    pinRow.classList.add('is-success');
+    statusMsg.textContent = 'Yeayy! Ketemu passwordnya 💖';
+    statusMsg.classList.add('is-visible', 'is-success');
+
+    fireSuccessBurst();
+
+    // animasi kartu "membuka" lalu pindah halaman
+    setTimeout(() => {
+      card.classList.add('is-unlocking');
+      $('#page-transition').classList.add('is-active');
+    }, 900);
+
+    setTimeout(() => {
+      const passwordScreen = document.getElementById('password-screen');
+      if (passwordScreen) passwordScreen.classList.add('is-hidden');
+
+      // Mulai ulang animasi landing setelah password berhasil dibuka.
+      document.querySelectorAll('#scene-landing [data-reveal]').forEach((el) => {
+        el.style.animation = 'none';
+        void el.offsetWidth;
+        el.style.animation = '';
+      });
+
+      setTimeout(() => {
+        if (passwordScreen) passwordScreen.remove();
+      }, 950);
+    }, 1900);
+  }
+
+  /* ============================================================
+     5. SPARKLE + HEART BURST SAAT SUKSES
+     ============================================================ */
+  function fireSuccessBurst() {
+    if (prefersReducedMotion) return;
+    const layer = $('#success-burst');
+    const symbols = ['💖', '💗', '✨', '🌸', '💕'];
+    const rect = pinRow.getBoundingClientRect();
+    const originX = rect.left + rect.width / 2;
+    const originY = rect.top + rect.height / 2;
+    const count = 34;
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = 'burst-piece';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 220 + 60;
+      const bx = Math.cos(angle) * distance;
+      const by = Math.sin(angle) * distance - 40; // sedikit bias ke atas
+
+      el.style.left = originX + 'px';
+      el.style.top = originY + 'px';
+      el.style.fontSize = (Math.random() * 14 + 12) + 'px';
+      el.style.setProperty('--bx', bx + 'px');
+      el.style.setProperty('--by', by + 'px');
+      el.style.setProperty('--br', (Math.random() * 180 - 90) + 'deg');
+      el.style.animationDelay = (Math.random() * 0.25) + 's';
+
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), 1700);
+    }
+  }
+})();
+
+</script>
 
 <script>
 (function () {
